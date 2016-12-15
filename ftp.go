@@ -223,15 +223,6 @@ func (c *ServerConn) pasv() (port int, err error) {
 // getDataConnPort returns a port for a new data connection
 // it uses the best available method to do so
 func (c *ServerConn) getDataConnPort() (int, error) {
-	if !c.disableEPSV {
-		if port, err := c.epsv(); err == nil {
-			return port, nil
-		}
-
-		// if there is an error, disable EPSV for the next attempts
-		c.disableEPSV = true
-	}
-
 	return c.pasv()
 }
 
